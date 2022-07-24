@@ -1,0 +1,81 @@
+{% load static jalali_tags %}
+<!doctype html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% include 'shared/_HeaderReferences.html' %}
+    <link rel="stylesheet" href="{% static 'ExtraCSS/bill.css' %}">
+    <title>حواله خروج شماره {{ output.id }} | {{ settings.title }}</title>
+</head>
+<body>
+<div class="container font-size-larger font-weight-bold">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <table class="text-center">
+                    <tr>
+                        <td class="width300 font-size-x-large pt-4">
+                            <p>شماره: {{ output.id }}</p>
+                        </td>
+                        <td class="center">
+                            <h1 class="font-weight-bold">حواله خروج انبار</h1>
+                            <span>بابت: {{ output.cause }}</span>
+                        </td>
+                        <td class="width300">
+                            <span>تاریخ: {{ output.timestamp.date|to_jalali }}</span>
+                            <span>ساعت: {{ output.timestamp.astimezone.time }}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-12">
+            <span class="font-size-x-large" style="line-height: 43px">
+                متصدی محترم انبار {{ output.store.name }}<br>
+                کالای مشروحه زیر را تحویل آقای <span class="font-weight-light">..........................................</span>
+                و
+                رسید دریافت نمائید.</span>
+        </div>
+        <div class="col-12">
+            <div class="row">
+                <table class="table-striped font-weight-bold font-size-larger">
+                    <thead class="text-center">
+                    <tr>
+                        <th>محصول</th>
+                        <th>تعداد</th>
+                        <th>واحد</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for detail in output.outputdetail_set.all %}
+                        <tr>
+                            <td class="width400">{{ detail.product.title }}</td>
+                            <td class="text-center width150">{{ detail.value }}</td>
+                            <td class="pr-4">{{ detail.product.measuring_unit.title }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12">
+                    <p>گیرنده حواله موظف است ظرف مدت یک روز از تاریخ فوق کالای مذکور را از انبار خارج نماید. در غیر این
+                        صورت هیچگونه مسئولیتی متوجه اینجانب نخواهد بود.</p>
+                    <div class="col-4 pull-left">
+                        <p>
+                            <span class="fa fa-circle"></span>
+                            امضاء
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

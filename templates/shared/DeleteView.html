@@ -1,0 +1,48 @@
+{% extends 'shared/_MainLayout.html' %}
+{% load crispy_forms_filters %}
+
+{% block header_ref %}
+    <title>حذف {{ name }} {{ title }} | {{ settings.title }}</title>
+{% endblock %}
+
+{% block content %}
+    <!--**********************************
+                Content body start
+            ***********************************-->
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="page-titles">
+                <h4>حذف {{ name }} {{ title }}</h4>
+            </div>
+            <!-- row -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="basic-form">
+                                <form method="post">{% csrf_token %}
+                                    {{ form|crispy }}
+                                    <div class="form-group row">
+                                        <p class="rounded bg-dark p-4 text-white col-12">آیا مطمئنید که
+                                            می‌خواهید {{ name }}
+                                            "{{ title }}" را حذف
+                                            کنید؟</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-warning">حذف</button>
+                                            <a href="{{ url }}" class="btn btn-danger pull-left"><span
+                                                    class="btn-icon-left text-danger"><i
+                                                    class="fa fa-arrow-left"></i>
+                                        </span>بازگشت</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

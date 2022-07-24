@@ -1,0 +1,22 @@
+@font-face {
+    font-family: "IranSansNumeral";
+    src: url('../fonts/IRANSansWeb(FaNum).eot'),
+    url('../fonts/IRANSansWeb(FaNum).ttf'),
+    url('../fonts/IRANSansWeb(FaNum).woff');
+}
+
+* {
+    font-family: IranSansNumeral, serif !important;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+input[type=number] {
+    -moz-appearance: textfield;
+    width: 100px;
+}

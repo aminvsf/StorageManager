@@ -1,0 +1,72 @@
+{% extends 'shared/_MainLayout.html' %}
+{% load crispy_forms_filters static %}
+
+{% block header_ref %}
+    <title>ویرایش {{ name }} {{ title }} | {{ settings.title }}</title>
+{% endblock %}
+
+{% block content %}
+    <!--**********************************
+                Content body start
+            ***********************************-->
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="page-titles">
+                <h4>ویرایش {{ name }} {{ title }}</h4>
+            </div>
+            <form method="post">{% csrf_token %}
+                <!-- row -->
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="basic-form">
+                                    {{ form|crispy }}
+                                    <div class="form-group row">
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-success">ثبت</button>
+                                            {% if request.GET.path %}
+                                                <a href="{{ request.GET.path }}" class="btn btn-danger pull-left"><span
+                                                        class="btn-icon-left text-danger"><i
+                                                        class="fa fa-arrow-left"></i>
+                                                </span>بازگشت</a>
+                                            {% else %}
+                                                <a href="{{ url }}" class="btn btn-danger pull-left"><span
+                                                        class="btn-icon-left text-danger"><i
+                                                        class="fa fa-arrow-left"></i>
+                                                </span>بازگشت</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="basic-form">
+                                    <div id="formset-div">
+                                        {{ details_form|crispy }}
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-sm btn-primary" id="add-button">اضافه کردن
+                                            محصول
+                                        </button>
+                                        <button type="button" disabled class="btn btn-sm btn-warning pull-left"
+                                                id="delete-button">حذف
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_ref %}
+    <script src="{% static 'ExtraJs/UpdateInline.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'shared/_MainLayout.html' %}
+
+{% block header_ref %}
+    <title>واحد های اندازه گیری | {{ settings.title }}</title>
+{% endblock %}
+
+{% block content %}
+    <!--**********************************
+                Content body start
+            ***********************************-->
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="page-titles">
+                <h4>واحد های اندازه گیری</h4>
+            </div>
+            {{ block.super }}
+            <!-- row -->
+            <div class="row">
+                {% if measuring_units|length > 0 %}
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-responsive-md">
+                                        <thead>
+                                        <tr>
+                                            <th class="width80"><strong>ردیف</strong></th>
+                                            <th><strong>عنوان</strong></th>
+                                            <th><strong>عملیات</strong></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for measuring_unit in measuring_units %}
+                                            <tr>
+                                                <td><strong>{{ forloop.counter }}</strong></td>
+                                                <td><strong class="text-black">{{ measuring_unit.title }}</strong></td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn btn-success light sharp"
+                                                                data-toggle="dropdown">
+                                                            <svg width="20px" height="20px" viewBox="0 0 24 24"
+                                                                 version="1.1">
+                                                                <g stroke="none" stroke-width="1" fill="none"
+                                                                   fill-rule="evenodd">
+                                                                    <rect x="0" y="0" width="24" height="24"></rect>
+                                                                    <circle fill="#000000" cx="5" cy="12"
+                                                                            r="2"></circle>
+                                                                    <circle fill="#000000" cx="12" cy="12"
+                                                                            r="2"></circle>
+                                                                    <circle fill="#000000" cx="19" cy="12"
+                                                                            r="2"></circle>
+                                                                </g>
+                                                            </svg>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item"
+                                                               href="{% url 'measuring-units-update' pk=measuring_unit.id %}">ویرایش</a>
+                                                            <a class="dropdown-item"
+                                                               href="{% url 'measuring-units-delete' pk=measuring_unit.id %}">حذف</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-lg-12">
+                        <div class="alert alert-warning">
+                            <span>هیچ موردی برای نمایش وجود ندارد.</span>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="col-xl-12 mb-4">
+                    <a href="{% url 'measuring-units-create' %}" class="btn btn-block btn-success"><span
+                            class="btn-icon-left text-success"><i
+                            class="fa fa-plus"></i>
+                    </span>افزودن واحد اندازه گیری جدید</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

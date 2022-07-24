@@ -1,0 +1,78 @@
+{% extends 'shared/_MainLayout.html' %}
+{% load crispy_forms_filters %}
+
+{% block header_ref %}
+    <title>پروفایل | {{ settings.title }}</title>
+{% endblock %}
+
+{% block content %}
+    <!--**********************************
+                Content body start
+            ***********************************-->
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="page-titles">
+                <h4>پروفایل</h4>
+            </div>
+            {{ block.super }}
+            <!-- row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="profile card card-body px-3 pt-3 pb-0">
+                        <div class="profile-head">
+                            <div class="photo-content">
+                                <div class="cover-photo"></div>
+                            </div>
+                            <div class="profile-info">
+                                <div class="profile-details">
+                                    <div class="profile-name px-3 pt-2">
+                                        {% if request.user.first_name and request.user.last_name %}
+                                            <h4 class="text-primary mb-0">{{ request.user.first_name }} {{ request.user.last_name }}</h4>
+                                        {% else %}
+                                            <h4 class="text-primary mb-0">{{ request.user.username }}</h4>
+                                        {% endif %}
+                                        {% if request.user.is_superuser %}
+                                            <p>ابر کابر</p>
+                                        {% elif request.user.is_staff %}
+                                            <p>کارمند</p>
+                                        {% else %}
+                                            <p>کاربر عادی</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="profile-tab">
+                                <div class="custom-tab-1">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active">
+                                            <div class="pt-3">
+                                                <div class="settings-form">
+                                                    <h4 class="text-primary">اطلاعات کاربری</h4>
+                                                    <form method="post" action="{% url 'profile' %}">{% csrf_token %}
+                                                        {{ form|crispy }}
+                                                        <button class="btn btn-primary" type="submit">ثبت</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+        Content body end
+    ***********************************-->
+{% endblock %}

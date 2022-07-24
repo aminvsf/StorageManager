@@ -1,0 +1,149 @@
+{% extends 'shared/_MainLayout.html' %}
+{% load jalali_tags %}
+
+{% block header_ref %}
+    <title>حواله های خروج | {{ settings.title }}</title>
+{% endblock %}
+
+{% block content %}
+    <!--**********************************
+                Content body start
+            ***********************************-->
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="page-titles">
+                <h4>حواله های خروج</h4>
+            </div>
+            {{ block.super }}
+            <!-- row -->
+            <div class="row">
+                {% if outputs|length > 0 %}
+                    <div class="col-xl-12 mb-4">
+                        <a href="{% url 'outputs-create' %}" class="btn btn-block btn-danger"><span
+                                class="btn-icon-left text-danger"><i
+                                class="fa fa-plus"></i>
+                        </span>افزودن حواله خروج جدید</a>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    {% url 'outputs' as url %}
+                                    {% include 'components/search-box.html' with url=url title='حواله های خروج' %}
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-responsive-md">
+                                        <thead>
+                                        <tr>
+                                            <th class="width80"><strong>ردیف</strong></th>
+                                            <th><strong>عنوان</strong></th>
+                                            <th><strong>تاریخ</strong></th>
+                                            <th><strong>تعداد محصول</strong></th>
+                                            <th><strong>انبار</strong></th>
+                                            <th><strong>عملیات</strong></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for output in outputs %}
+                                            <tr>
+                                                <td><strong>{{ forloop.counter }}</strong></td>
+                                                <td><strong class="text-black">{{ output.cause }}</strong></td>
+                                                <td>
+                                                    <strong class="text-black">{{ output.timestamp|to_jalali }}</strong>
+                                                </td>
+                                                <td>
+                                                    <strong class="text-black">{{ output.outputdetail_set.all|length }}</strong>
+                                                </td>
+                                                <td>
+                                                    <strong class="text-black">{{ output.store_id }}</strong>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <a href="{% url 'outputs-detail' pk=output.id %}?path={% url 'outputs' %}"
+                                                           class="btn btn-success light sharp">جزئیات</a>
+                                                        <a href="{% url 'outputs-bill' pk=output.id %}" target="_blank"
+                                                           class="btn btn-success light sharp">برگ حواله</a>
+                                                        <button type="button" class="btn btn-success light sharp"
+                                                                data-toggle="dropdown">
+                                                            <svg width="20px" height="20px" viewBox="0 0 24 24"
+                                                                 version="1.1">
+                                                                <g stroke="none" stroke-width="1" fill="none"
+                                                                   fill-rule="evenodd">
+                                                                    <rect x="0" y="0" width="24" height="24"></rect>
+                                                                    <circle fill="#000000" cx="5" cy="12"
+                                                                            r="2"></circle>
+                                                                    <circle fill="#000000" cx="12" cy="12"
+                                                                            r="2"></circle>
+                                                                    <circle fill="#000000" cx="19" cy="12"
+                                                                            r="2"></circle>
+                                                                </g>
+                                                            </svg>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item"
+                                                               href="{% url 'outputs-update' pk=output.id %}?path={% url 'outputs' %}">ویرایش</a>
+                                                            <a class="dropdown-item"
+                                                               href="{% url 'outputs-delete' pk=output.id %}?path={% url 'outputs' %}">حذف</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% elif request.GET.sk %}
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <div class="input-group search-area d-lg-inline-flex d-none">
+                                        <form action="{% url 'outputs' %}" method="get">
+                                            <div class="input-group-append">
+                                                <button class="input-group-text"><i class="flaticon-381-search-2"></i>
+                                                </button>
+                                                <input required type="text" value="{{ request.GET.sk }}" name="sk"
+                                                       class="form-control"
+                                                       placeholder="جستجو در حواله های خروج ...">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col-lg-12">
+                                    <div class="alert alert-warning">
+                                        <span>هیچ نتیجه ای برای جستجو شما یافت نشد.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <a href="{% url 'outputs' %}" class="btn btn-danger pull-left"><span
+                                    class="btn-icon-left text-danger"><i
+                                    class="fa fa-arrow-left"></i>
+                            </span>بازگشت به همه حواله های خروج</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-xl-12 mb-4">
+                        <a href="{% url 'outputs-create' %}" class="btn btn-block btn-danger"><span
+                                class="btn-icon-left text-danger"><i
+                                class="fa fa-plus"></i>
+                        </span>افزودن حواله خروج جدید</a>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="alert alert-warning">
+                            <span>هیچ موردی برای نمایش وجود ندارد.</span>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

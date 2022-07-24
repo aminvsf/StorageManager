@@ -1,0 +1,42 @@
+<div class="deznav">
+    <div class="deznav-scroll">
+        <ul class="metismenu" id="menu">
+            <li>
+                <a href="{% url 'panel' %}" class="ai-icon">
+                    <i class="flaticon-381-networking"></i>
+                    <span class="nav-text">صفحه اصلی</span>
+                </a>
+            </li>
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+                    <i class="ti-receipt"></i>
+                    <span class="nav-text">حواله ها</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'inputs' %}">حواله های ورود</a></li>
+                    <li><a href="{% url 'outputs' %}">حواله های خروج</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'stores' %}" class="ai-icon">
+                    <i class="fa fa-database"></i>
+                    <span class="nav-text">انبار ها</span>
+                </a>
+            </li>
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+                    <i class="la la-list"></i>
+                    <span class="nav-text">محصول ها</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'products' %}">همه محصول ها</a></li>
+                    <li><a href="{% url 'product-records' %}">موجودی محصول ها</a></li>
+                    <li><a href="{% url 'measuring-units' %}">واحد های اندازه گیری</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="copyright">
+            <p><strong>{{ settings.copy_right }}</strong></p>
+        </div>
+    </div>
+</div>

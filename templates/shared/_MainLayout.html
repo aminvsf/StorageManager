@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fa" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Header References -->
+    {% include 'shared/_HeaderReferences.html' %}
+    <!-- Extra Header References -->
+    {% block header_ref %}{% endblock %}
+</head>
+<body onload="try{initial('{{ details_form.prefix }}')}catch(e){}">
+<!-- Main Wrapper -->
+<div id="main-wrapper">
+
+    <!-- Preloader start -->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+    <!-- Nav Header -->
+    {% include 'shared/NavHeader.html' %}
+
+    <!-- Header -->
+    {% include 'shared/Header.html' %}
+
+    <!-- Sidebar -->
+    {% include 'shared/Sidebar.html' %}
+
+    <!-- Main Content -->
+    {% block content %}{% include 'shared/Messages.html' %}{% endblock %}
+
+    <!-- Footer -->
+    {% include 'shared/Footer.html' %}
+
+    <!-- Footer References -->
+    {% include 'shared/_FooterReferences.html' %}
+
+    <!-- Extra Footer References -->
+    {% block footer_ref %}{% endblock %}
+</div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{% if request.GET.path %}
+    <a href="{{ request.GET.path }}" class="btn btn-danger pull-left"><span
+            class="btn-icon-left text-danger"><i
+            class="fa fa-arrow-left"></i>
+    </span>بازگشت</a>
+{% else %}
+    <a href="{{ url }}" class="btn btn-danger pull-left"><span
+            class="btn-icon-left text-danger"><i
+            class="fa fa-arrow-left"></i>
+    </span>بازگشت</a>
+{% endif %}

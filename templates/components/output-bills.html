@@ -1,0 +1,61 @@
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-header d-block d-sm-flex border-0">
+            <div>
+                <h4 class="fs-20 text-black">حواله های خروج</h4>
+                <p class="mb-0 fs-13">آخرین حواله های خروج بر اساس زمان</p>
+            </div>
+            <div class="card-action card-tabs mt-3 mt-sm-0">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#Monthly-Outputs"
+                           role="tab">ماهانه</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#Weekly-Outputs" role="tab">هفتگی</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#Yesterday-Outputs" role="tab">دیروز</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#Today-Outputs" role="tab">امروز</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body payment-bx tab-content p-0">
+            <div class="tab-pane active show fade" id="Monthly-Outputs" role="tabpanel">
+                <div id="accordion-one" class="accordion accordion-primary">
+                    {% for output in outputs_monthly %}
+                        {% include 'components/accordion-output.html' with counter=forloop.counter parent='accordion-one' %}
+                    {% endfor %}
+                    {% include 'components/nothing-to-show.html' with objects=outputs_monthly %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="Weekly-Outputs" role="tabpanel">
+                <div id="accordion-two" class="accordion accordion-primary">
+                    {% for output in outputs_weekly %}
+                        {% include 'components/accordion-output.html' with counter=forloop.counter parent='accordion-two' %}
+                    {% endfor %}
+                    {% include 'components/nothing-to-show.html' with objects=outputs_weekly %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="Yesterday-Outputs" role="tabpanel">
+                <div id="accordion-three" class="accordion accordion-primary">
+                    {% for output in outputs_yesterday %}
+                        {% include 'components/accordion-output.html' with counter=forloop.counter parent='accordion-three' %}
+                    {% endfor %}
+                    {% include 'components/nothing-to-show.html' with objects=outputs_yesterday %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="Today-Outputs" role="tabpanel">
+                <div id="accordion-four" class="accordion accordion-primary">
+                    {% for output in outputs_today %}
+                        {% include 'components/accordion-output.html' with counter=forloop.counter parent='accordion-four' %}
+                    {% endfor %}
+                    {% include 'components/nothing-to-show.html' with objects=outputs_today %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

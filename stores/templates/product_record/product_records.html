@@ -1,0 +1,107 @@
+{% extends 'shared/_MainLayout.html' %}
+{% load jalali_tags %}
+
+{% block header_ref %}
+    <title>موجودی محصول ها | {{ settings.title }}</title>
+{% endblock %}
+
+{% block content %}
+    <!--**********************************
+                Content body start
+            ***********************************-->
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="page-titles">
+                <h4>موجودی محصول ها</h4>
+            </div>
+            {{ block.super }}
+            <!-- row -->
+            <div class="row">
+                {% if product_records|length > 0 %}
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    {% url 'product-records' as url %}
+                                    {% include 'components/search-box.html' with url=url title='موجودی ها' %}
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-responsive-md">
+                                        <thead>
+                                        <tr>
+                                            <th class="width80"><strong>ردیف</strong></th>
+                                            <th><strong>محصول</strong></th>
+                                            <th><strong>موجودی</strong></th>
+                                            <th><strong>واحد اندازه گیری</strong></th>
+                                            <th><strong>انبار</strong></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for product_record in product_records %}
+                                            <tr>
+                                                <td><strong>{{ forloop.counter }}</strong></td>
+                                                <td><strong
+                                                        class="text-black">{{ product_record.product.title }}</strong>
+                                                </td>
+                                                <td>
+                                                    <strong class="text-black">{{ product_record.inventory }}</strong>
+                                                </td>
+                                                <td>
+                                                    <strong class="text-black">{{ product_record.product.measuring_unit.title }}</strong>
+                                                </td>
+                                                <td><strong class="text-black">{{ product_record.store.name }}</strong>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% elif request.GET.sk %}
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <div class="input-group search-area d-lg-inline-flex d-none">
+                                        <form action="{% url 'product-records' %}" method="get">
+                                            <div class="input-group-append">
+                                                <button class="input-group-text"><i class="flaticon-381-search-2"></i>
+                                                </button>
+                                                <input required type="text" value="{{ request.GET.sk }}" name="sk"
+                                                       class="form-control"
+                                                       placeholder="جستجو در موجودی محصول ها ...">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col-lg-12">
+                                    <div class="alert alert-warning">
+                                        <span>هیچ نتیجه ای برای جستجو شما یافت نشد.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <a href="{% url 'product-records' %}" class="btn btn-danger pull-left"><span
+                                    class="btn-icon-left text-danger"><i
+                                    class="fa fa-arrow-left"></i>
+                            </span>بازگشت به همه موجودی محصول ها</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-lg-12">
+                        <div class="alert alert-warning">
+                            <span>هیچ موردی برای نمایش وجود ندارد.</span>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

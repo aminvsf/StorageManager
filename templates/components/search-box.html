@@ -1,0 +1,17 @@
+<div class="input-group search-area d-lg-inline-flex d-none">
+    <form action="{{ url }}" method="get">
+        <div class="input-group-append">
+            <button class="input-group-text"><i class="flaticon-381-search-2"></i>
+            </button>
+            <input required type="text" value="{{ request.GET.sk }}" name="sk"
+                   class="form-control"
+                   placeholder="جستجو در {{ title }} ...">
+        </div>
+    </form>
+</div>
+{% if request.GET.sk %}
+    <div class="input-group search-area d-lg-inline-flex d-none">
+        <a href="{{ url }}" class="btn btn-info btn-sm">نمایش
+            همه</a>
+    </div>
+{% endif %}

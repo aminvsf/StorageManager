@@ -1,0 +1,95 @@
+{% extends 'shared/_MainLayout.html' %}
+{% load jalali_tags %}
+
+{% block header_ref %}
+    <title>انبار {{ store.name }} | {{ settings.title }}</title>
+{% endblock %}
+
+{% block content %}
+    <!--**********************************
+                Content body start
+            ***********************************-->
+    <div class="content-body">
+        <!-- row -->
+        <div class="container-fluid">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-0">
+                    <div class="welcome-text">
+                        <h2 class="text-black font-w600 mb-0">انبار {{ store.name }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header d-sm-flex d-block border-0 pb-0">
+                                    <div class="ml-auto mb-sm-0 mb-3">
+                                        <p class="fs-14 mb-1">کد انبار</p>
+                                        <span class="fs-34 text-black font-w600">{{ store.id }}</span>
+                                    </div>
+                                    <div>
+                                        {% url 'stores' as url %}
+                                        {% include 'components/back-button.html' with url=url %}
+                                    </div>
+                                </div>
+                                <div class="card-body border-bottom">
+                                    <div class="d-flex flex-wrap mb-sm-2 justify-content-between">
+                                        <div class="pr-3 mb-3">
+                                            <p class="fs-14 mb-1">عنوان</p>
+                                            <span class="text-black fs-18 font-w500">{{ store.name }}</span>
+                                        </div>
+                                        <div class="pr-3 mb-3">
+                                            <p class="fs-14 mb-1">ایجاد شده</p>
+                                            <span class="text-black fs-18 font-w500">{{ store.created|to_jalali }}</span>
+                                        </div>
+                                        <div class="pr-3 mb-3">
+                                            <p class="fs-14 mb-1">آخرین تغییر</p>
+                                            <span class="text-black fs-18 font-w500">{{ store.timestamp|to_jalali }}</span>
+                                        </div>
+                                        <div class="pr-3 mb-3">
+                                            <p class="fs-14 mb-1">تعداد محصول های موجود</p>
+                                            <span class="text-black fs-18 font-w500">{{ store.productrecord_set.all|length }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="col-lg-12">
+                                        {% if store.productrecord_set.all|length > 0 %}
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>ردیف</th>
+                                                    <th>عنوان محصول</th>
+                                                    <th>موجودی</th>
+                                                    <th>واحد اندازه گیری</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for detail in store.productrecord_set.all %}
+                                                    <tr>
+                                                        <td>{{ forloop.counter }}</td>
+                                                        <td>{{ detail.product.title }}</td>
+                                                        <td>{{ detail.inventory }}</td>
+                                                        <td>{{ detail.product.measuring_unit.title }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        {% else %}
+                                            <p>محصولی برای نمایش وجود ندارد.</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+        Content body end
+    ***********************************-->
+{% endblock %}

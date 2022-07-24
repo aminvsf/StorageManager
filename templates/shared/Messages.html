@@ -1,0 +1,9 @@
+{% for message in messages %}
+    <div class="alert alert-{% if message.tags != 'error' %}{{ message.tags }}{% else %}danger{% endif %} solid alert-right-icon alert-dismissible fade show">
+        <span>{% if message.tags == 'success' %}<i class="mdi mdi-check"></i>{% elif message.tags == 'warning' %}<i class="mdi mdi-alert"></i>{% elif message.tags == 'info' %}<i class="mdi mdi-email"></i>{% else %}<i class="mdi mdi-help"></i>{% endif %}</span>
+        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i
+                class="mdi mdi-close"></i></span>
+        </button>
+        {{ message }}
+    </div>
+{% endfor %}
