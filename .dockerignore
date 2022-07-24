@@ -1,6 +1,7 @@
 k8s/
 .env
 .DS_Store
+Scripts/
 
 
 # Byte-compiled / optimized / DLL files
